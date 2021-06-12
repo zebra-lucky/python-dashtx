@@ -1,4 +1,4 @@
-This Python3 library implements support for Litecoin transactions.
+This Python3 library implements support for Dash transactions.
 
 It builds on top, and is intended to be used along with python-bitcointx library.
 
@@ -8,17 +8,17 @@ It builds on top, and is intended to be used along with python-bitcointx library
 
 ## Usage:
 
-With contextual switch to Litecoin parameters:
+With contextual switch to Dash parameters:
 
 ```python
 import os
-import litecointx
+import dashtx
 from bitcointx import ChainParams, get_current_chain_params
 from bitcointx.wallet import (
     CCoinKey, CCoinExtKey, P2WPKHCoinAddress, CCoinAddress
 )
 
-with ChainParams('litecoin'):
+with ChainParams('dash'):
     k = CCoinExtKey.from_seed(os.urandom(32))
     a = P2WPKHCoinAddress.from_pubkey(k.derive_path("m/0h/0h/1").pub)
     print('example {} address: {}'.format(get_current_chain_params().NAME, a))
@@ -26,38 +26,36 @@ with ChainParams('litecoin'):
 
 ```
 
-With global switch to Litecoin parameters:
+With global switch to Dash parameters:
 
 ```python
-from litecointx import LitecoinMainnetParams
+from dashtx import DashMainnetParams
 from bitcointx import select_chain_params
 
-select_chain_params('litecoin')
+select_chain_params('dash')
 # or, using the chain params class directly
-select_chain_params(LitecoinMainnetParams)
+select_chain_params(DashMainnetParams)
 
 ```
 
 Without the switch of chain parameters:
 
 ```python
-from litecointx.wallet import P2SHLitecoinLegacyAddress, P2SHLitecoinAddress
+from dashtx.wallet import P2SHDashAddress
 
-legacy_adr = P2SHLitecoinLegacyAddress('3F1c6UWAs9RLN2Mbt5bAJue12VhVCorXzs')
-canonical_adr = P2SHLitecoinAddress.from_scriptPubKey(legacy_adr.to_scriptPubKey())
-assert str(canonical_adr) == 'MMDkQMv8pGGmAXdVyxaW8YtQMCHw7eouma'
+p2sh_addr = P2SHDashAddress('7UHUEqN8EwpHFJjf7U83YAUhEinxYt1MAK')
+p2sh_addr = P2SHDashAddress.from_scriptPubKey(p2sh_addr.to_scriptPubKey())
+assert str(p2sh_addr) == '7UHUEqN8EwpHFJjf7U83YAUhEinxYt1MAK'
 
 ```
-
-With special parameter that makes CCoinAddress to decode legacy p2sh addresses:
 
 ```python
 from bitcointx import select_chain_params
 from bitcointx.wallet import CCoinAddress
-from litecointx.wallet import P2SHLitecoinLegacyAddress
+from dashtx.wallet import P2SHDashAddress
 
-select_chain_params('litecoin', allow_legacy_p2sh=True)
-legacy_adr = CCoinAddress('3F1c6UWAs9RLN2Mbt5bAJue12VhVCorXzs')
-assert isinstance(legacy_adr, P2SHLitecoinLegacyAddress)
+select_chain_params('dash')
+p2sh_addr = CCoinAddress('7UHUEqN8EwpHFJjf7U83YAUhEinxYt1MAK')
+assert isinstance(p2sh_addr, P2SHDashAddress)
 ```
 this also works with ChainParams context manager.
