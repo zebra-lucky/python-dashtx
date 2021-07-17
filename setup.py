@@ -3,8 +3,6 @@
 from setuptools import setup, find_packages
 import os
 
-from dashtx import __version__
-
 here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, 'README.md')) as f:
     README = f.read()
@@ -12,7 +10,7 @@ with open(os.path.join(here, 'README.md')) as f:
 requires = ['python-bitcointx>=1.0.0,<2']
 
 setup(name='python-dashtx',
-      version=__version__,
+      version='0.1.1',
       description='Dash module for use with python-bitcointx',
       long_description=README,
       long_description_content_type='text/markdown',

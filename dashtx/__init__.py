@@ -9,8 +9,6 @@
 # propagated, or distributed except according to the terms contained in the
 # LICENSE file.
 
-from .version import __version__
-
 import dashtx.core
 import dashtx.core.script
 import dashtx.wallet
@@ -42,7 +40,6 @@ class DashRegtestParams(DashMainnetParams, name='dash/regtest'):
 
 
 __all__ = (
-    '__version__',
     'DashMainnetParams',
     'DashTestnetParams',
     'DashRegtestParams'
